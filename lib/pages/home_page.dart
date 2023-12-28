@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:al_et_alwards/models/sentence.dart';
+import 'package:al_et_alwards/services/firestore_service.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
 
   void _submitChoice() {
     log('You chose x');
+    FirestoreService().createVote();
   }
 
   @override
