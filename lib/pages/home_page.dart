@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:al_et_alwards/models/sentence.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,12 +13,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _counter = 0;
+  Sentence? _selectedOption;
+  static const _sentences = [
+    Sentence(
+      text: 'A',
+      author: 'a',
+    ),
+    Sentence(
+      text: 'B',
+      author: 'b',
+    ),
+    Sentence(
+      text: 'C',
+      author: 'c',
+    ),
+  ];
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void _submitChoice() {
+    log('You chose x');
   }
 
   @override
@@ -29,19 +44,28 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
-              'You have pushed the button this many times:',
+              'Qual a frase mais legal?',
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            ..._sentences.map(
+              (sentence) => RadioListTile<Sentence>(
+                value: sentence,
+                groupValue: _selectedOption,
+                onChanged: (Sentence? value) {
+                  log('You changed your option');
+                  setState(() {
+                    _selectedOption = value;
+                  });
+                },
+                title: Text(sentence.text),
+                subtitle: Text(sentence.author),
+              ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
+        onPressed: _submitChoice,
+        child: const Icon(Icons.check),
       ),
     );
   }
