@@ -54,8 +54,14 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: firebaseOptionsApiKey,
-    appId: firebaseOptionsAppId,
+    apiKey: String.fromEnvironment(
+      'FirebaseOptions_APPId',
+      defaultValue: firebaseOptionsApiKey,
+    ),
+    appId: String.fromEnvironment(
+      'FirebaseOptions_APIKey',
+      defaultValue: firebaseOptionsAppId,
+    ),
     messagingSenderId: '812298332040',
     projectId: 'al-et-alwards',
     authDomain: 'al-et-alwards.firebaseapp.com',
